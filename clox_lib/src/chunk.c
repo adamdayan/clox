@@ -7,7 +7,7 @@ void initChunk(Chunk* chunk) {
   chunk->capacity = 0;
   chunk->count = 0;
   chunk->code = NULL;
-  chunk->line = NULL;
+  initLineCounter(&chunk->lines);
   initValueArray(&chunk->constants);
 }
 
@@ -17,17 +17,16 @@ void writeChunk(Chunk* chunk, const uint8_t byte, uint16_t line) {
     uint32_t oldCapacity = chunk->capacity;
     chunk->capacity = grow_capacity(oldCapacity);
     chunk->code = GROW_ARRAY(uint8_t, chunk->code, chunk->capacity);
-    chunk->line = GROW_ARRAY(uint16_t, chunk->line, chunk->capacity);
   }
   chunk->code[chunk->count] = byte;
-  chunk->line[chunk->count] = line;
+  writeLineCounter(&chunk->lines, chunk->count, line);
   chunk->count += 1;
 }
 
 // delete contents of chunk and re-initialise it
 void freeChunk(Chunk* chunk) {
   FREE_ARRAY(uint8_t, chunk->code);
-  FREE_ARRAY(uint16_t, chunk->line);
+  freeLineCounter(&chunk->lines);
   freeValueArray(&chunk->constants);
   initChunk(chunk);
 }

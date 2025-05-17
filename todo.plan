@@ -1,0 +1,12 @@
+- add VM
+  - empty init 
+  - pointer to chunk
+  - run method
+    - returns InterpretResult
+    - instruction pointer - points at next instruction
+      - not an offset for speed reasons
+    - switch
+  - OP_CONSTANT
+    - print 
+  - execution tracing
+    - disassemble current instruction

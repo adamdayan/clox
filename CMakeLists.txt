@@ -13,3 +13,6 @@ add_subdirectory(clox_lib)
 add_executable(clox main.c)
 target_link_libraries(clox PRIVATE clox_lib)
 
+set_property(TARGET clox PROPERTY C_STANDARD 11)
+target_compile_options(clox_lib PRIVATE -Wall -Wextra -Werror)
+

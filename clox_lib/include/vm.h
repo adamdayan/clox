@@ -29,7 +29,7 @@ extern Vm vm;
 
 void initVm();
 void freeVm();
-InterpretResult interpret(Chunk* chunk);
+InterpretResult interpret(char* source);
 // stack methods
 void resetStack();
 void push(Value value);

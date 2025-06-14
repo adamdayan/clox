@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "compiler.h"
 #include "debug.h"
 #include "vm.h"
 
@@ -69,11 +70,9 @@ InterpretResult run() {
   }
 }
 
-InterpretResult interpret(Chunk* chunk) {
-  vm.chunk = chunk;
-  vm.ip = chunk->code;
-
-  return run();
+InterpretResult interpret(char* source) {
+  compile(source);
+  return INTERPRET_OK;
 }
 
 // reset VM stack pointer
